@@ -7,9 +7,23 @@ You'll need the following:
 
 ## Deploying
 
-```bash
-forge create --rpc-url <your_rpc_url> --private-key <your_private_key> src/EthernautExperience.sol:EthernautExperience
-```
+- deploy and verify:
+
+`forge script script/EthernautExperience.s.sol:MyScript --rpc-url $RPC_URL --private-key $PRIVATE_KEY --broadcast --verify --etherscan-api-key $ETHERSCAN_KEY -vvvv`
+
+## Minting
+
+- set approved minter(s):
+
+`cast send --rpc-url $RPC_URL --private-key $PRIVATE_KEY $CONTRACT_ADDRESS "setApprovedMinter(address,bool)" ${MINTER_ADDRESS} "true" --from $FROM_ADDRESS`
+
+- mint:
+
+`cast send --rpc-url $RPC_URL --private-key $PRIVATE_KEY $CONTRACT_ADDRESS "mint(address, uint256)" ${MINTER_ADDRESS} ${MINT_VALUE} --from $FROM_ADDRESS`
+
+- query balance:
+
+`cast call --rpc-url $RPC_URL $CONTRACT_ADDRESS "balanceOf(address)(uint256)" ${MINTER_ADDRESS} --from $FROM_ADDRESS`
 
 ## Gas Report
 
